@@ -1,16 +1,33 @@
 'use client'
-import React from 'react'
+import React, { useState } from 'react'
 import { trpc } from '@/app/(trpc)/client'
 import UploadButton from './UploadButton'
-import { Ghost, MessageSquare, Plus, Trash } from 'lucide-react'
+import { Ghost, Loader, Loader2, MessageSquare, Plus, Trash } from 'lucide-react'
 import Skeleton from 'react-loading-skeleton'
 import Link from 'next/link'
 import { format, setDefaultOptions } from 'date-fns'
 import { ptBR } from 'date-fns/locale'
 import { Button } from './ui/button'
+import { Londrina_Outline } from 'next/font/google'
 
 function Dashboard() {
+
+    const [deletarArquivoAtual, setDeletarArquivoAtual] = useState<string | null>(null)
+
+    const utils = trpc.useContext()
+
     const { data: files, isLoading } = trpc.getUserFiles.useQuery()
+    const { mutate: deleteFile } = trpc.deteleFile.useMutation({
+        onSuccess: () => {
+            utils.getUserFiles.invalidate()
+        },
+        onMutate({ id }) {
+            setDeletarArquivoAtual(id)
+        },
+        onSettled() {
+            setDeletarArquivoAtual(null)
+        }
+    })
     setDefaultOptions({
         locale: ptBR
     })
@@ -46,8 +63,14 @@ function Dashboard() {
                                     teste
                                 </div>
 
-                                <Button size='sm' className='w-full' variant='destructive'>
-                                    <Trash className='h-4 w-4' />
+                                <Button
+                                    onClick={() => deleteFile({ id: file.id })}
+                                    size='sm'
+                                    className='w-full'
+                                    variant='destructive'>
+                                    {deletarArquivoAtual === file.id ? (
+                                        <Loader2 className='h-4 w-4 animate-spin' />
+                                    ) : < Trash className='h-4 w-4' />}
                                 </Button>
                             </div>
 
