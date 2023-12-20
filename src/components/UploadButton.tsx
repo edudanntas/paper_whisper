@@ -38,7 +38,7 @@ const DropzoneUpload = () => {
                     clearInterval(interval)
                     return prevProgress
                 }
-                return prevProgress + 5
+                return prevProgress + 2
             })
         }, 500)
 
