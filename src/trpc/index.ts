@@ -35,6 +35,20 @@ export const appRouter = router({
             }
         })
     }),
+
+    getFileUploadStatus: protectedProcedure.input((z.object({ fileId: z.string() }))).query(async ({ ctx, input }) => {
+        const { userId } = ctx
+        const file = await db.file.findFirst({
+            where: {
+                id: input.fileId,
+                userId
+            }
+        })
+        if (!file) return { status: "PENDING" as const }
+
+        return { status: file.UploadStatus }
+
+    }),
     getFile: protectedProcedure.input(z.object({ key: z.string() })).mutation(async ({ ctx, input }) => {
         const { userId } = ctx
 
@@ -49,7 +63,6 @@ export const appRouter = router({
 
         return file
     }),
-
     deteleFile: protectedProcedure.input(z.object({ id: z.string() })).mutation(async ({ ctx, input }) => {
         const { userId } = ctx
 

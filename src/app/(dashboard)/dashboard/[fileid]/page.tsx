@@ -1,4 +1,4 @@
-import Chat from '@/components/Chat'
+import Chat from '@/components/chat/Chat'
 import RenderPDF from '@/components/RenderPDF'
 import { db } from '@/db'
 import { getKindeServerSession } from '@kinde-oss/kinde-auth-nextjs/server'
@@ -39,7 +39,7 @@ const page = async ({ params }: Props) => {
 
                 {/* Lado direito: Chat */}
                 <div className='shrink-0 flex-[0.75] border-t border-gray-200 lg:w-96 lg:border-l lg:border-y-0'>
-                    <Chat />
+                    <Chat fileId={file.id} />
                 </div>
             </div>
         </div>
