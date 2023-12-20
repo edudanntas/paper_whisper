@@ -1,5 +1,5 @@
 'use client'
-import { ChevronDown, ChevronUp, Loader2, RotateCw, Search } from 'lucide-react';
+import { ChevronDown, ChevronUp, Divide, Loader2, RotateCw, Search } from 'lucide-react';
 import React, { useState } from 'react'
 import { Document, Page, pdfjs } from 'react-pdf'
 import 'react-pdf/dist/Page/AnnotationLayer.css';
@@ -14,6 +14,7 @@ import { zodResolver } from '@hookform/resolvers/zod'
 import { cn } from '@/lib/utils';
 import { DropdownMenu, DropdownMenuContent, DropdownMenuItem, DropdownMenuTrigger } from './ui/dropdown-menu';
 import SimpleBar from 'simplebar-react';
+import PdfFullScreen from './PdfFullScreen';
 
 pdfjs.GlobalWorkerOptions.workerSrc = `//cdnjs.cloudflare.com/ajax/libs/pdf.js/${pdfjs.version}/pdf.worker.js`;
 
@@ -27,6 +28,9 @@ function RenderPDF({ url }: Props) {
     const [paginaAtual, setPaginaAtual] = useState<number>(1)
     const [scale, setScale] = useState<number>(1)
     const [rotation, setRotation] = useState<number>(0)
+    const [renderedScale, setRenderedScale] = useState<number | null>(null)
+
+    const isLoading = renderedScale !== scale
 
     const CustomValidationForm = z.object({
         page: z.string().refine((num) => Number(num) > 0 && Number(num) <= numeroPagina!)
@@ -60,7 +64,8 @@ function RenderPDF({ url }: Props) {
                         variant='ghost'
                         aria-label='página anterior'
                         onClick={() => {
-                            setPaginaAtual((prev) => (prev - 1 > 1 ? prev - 1 : 1))
+                            setPaginaAtual((prev) => prev - 1 > 1 ? prev - 1 : 1)
+                            setValue('page', String(paginaAtual - 1))
                         }}
                         disabled={paginaAtual <= 1}
                     >
@@ -92,6 +97,7 @@ function RenderPDF({ url }: Props) {
                         aria-label='próxima página'
                         onClick={() => {
                             setPaginaAtual((prev) => (prev + 1 > numeroPagina! ? numeroPagina! : prev + 1))
+                            setValue('page', String(paginaAtual + 1))
                         }}
                     >
                         <ChevronUp className='h-4 w-4' />
@@ -139,6 +145,8 @@ function RenderPDF({ url }: Props) {
                         aria-label='rotacionar 90 graus'>
                         <RotateCw className='h-4 w-4' />
                     </Button>
+
+                    <PdfFullScreen fileUrl={url} />
                 </div>
             </div>
 
@@ -157,12 +165,29 @@ function RenderPDF({ url }: Props) {
                             loading={<div className='flex justify-center'><Loader2 className='h-6 w-6 my-24 animate-spin' /></div>}
                             file={url}
                             className='max-h-full'>
-                            <Page
+                            {isLoading && renderedScale ? < Page
                                 width={width ? width : 1}
                                 pageNumber={paginaAtual}
                                 scale={scale}
                                 rotate={rotation}
+                                key={"@" + renderedScale}
+                            /> : null}
+
+                            <Page
+                                className={cn(isLoading ? 'hidden' : "")}
+                                width={width ? width : 1}
+                                pageNumber={paginaAtual}
+                                scale={scale}
+                                rotate={rotation}
+                                key={"@" + scale}
+                                loading={
+                                    <div className='flex justify-center'>
+                                        <Loader2 className='my-24 h-6 w-6 animate-spin' />
+                                    </div>
+                                }
+                                onRenderSuccess={() => setRenderedScale(scale)}
                             />
+
                         </Document>
                     </div>
                 </SimpleBar>
