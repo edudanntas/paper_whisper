@@ -6,6 +6,7 @@ import { trpc } from '@/app/(trpc)/client'
 import { ChevronLeft, Loader2, XCircle } from 'lucide-react'
 import Link from 'next/link'
 import { buttonVariants } from '../ui/button'
+import { ChatContextProvider } from './ChatContext'
 
 
 type Props = {
@@ -37,7 +38,7 @@ const Chat = ({ fileId }: Props) => {
                     </div>
                 </div>
 
-                <ChatInput isDisabled />
+                <ChatInput isDisabled={true} />
             </div>
         )
     if (data?.status === "PROCESSING")
@@ -53,7 +54,7 @@ const Chat = ({ fileId }: Props) => {
                     </div>
                 </div>
 
-                <ChatInput isDisabled />
+                <ChatInput isDisabled={true} />
             </div>
         )
 
@@ -77,7 +78,7 @@ const Chat = ({ fileId }: Props) => {
                     </div>
                 </div>
 
-                <ChatInput isDisabled />
+                <ChatInput isDisabled={true} />
             </div >
         )
 
@@ -86,13 +87,14 @@ const Chat = ({ fileId }: Props) => {
 
 
     return (
-        <div className='relative min-h-full bg-zinc-50 flex divide-y divide-zinc-200 flex-col justify-between gap-2'>
-            <div className='flex-1 justify-between flex flex-col mb-28'>
-                <Message />
+        <ChatContextProvider fileId={fileId}>
+            <div className='relative min-h-full bg-zinc-50 flex divide-y divide-zinc-200 flex-col justify-between gap-2'>
+                <div className='flex-1 justify-between flex flex-col' >
+                    <Message fileId={fileId} />
+                </div>
+                <ChatInput />
             </div>
-
-            <ChatInput />
-        </div>
+        </ChatContextProvider>
     )
 }
 

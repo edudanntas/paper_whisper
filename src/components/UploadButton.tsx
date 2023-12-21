@@ -107,7 +107,7 @@ const DropzoneUpload = () => {
                                 {uploadProgress === 100 ? (
                                     <div className='flex gap-1 items-center justify-center text-sm text-zinc-700 text-center pt-2'>
                                         <Loader2 className='w-3 h-3 animate-spin' />
-                                        Indo até o arquivo...
+                                        Redirecionando...
                                     </div>
                                 ) : null}
                             </div>
