@@ -1,16 +1,20 @@
 'use client'
-import React, { useState } from 'react'
 import { trpc } from '@/app/(trpc)/client'
-import UploadButton from './UploadButton'
-import { Ghost, Loader, Loader2, MessageSquare, Plus, Trash } from 'lucide-react'
-import Skeleton from 'react-loading-skeleton'
-import Link from 'next/link'
 import { format, setDefaultOptions } from 'date-fns'
 import { ptBR } from 'date-fns/locale'
+import { Ghost, Loader2, MessageSquare, Plus, Trash } from 'lucide-react'
+import Link from 'next/link'
+import { useState } from 'react'
+import Skeleton from 'react-loading-skeleton'
+import UploadButton from './UploadButton'
 import { Button } from './ui/button'
-import { Londrina_Outline } from 'next/font/google'
+import { getUserSubscriptionPlan } from '@/lib/stripe'
 
-function Dashboard() {
+type Props = {
+    subscriptionPlan: Awaited<ReturnType<typeof getUserSubscriptionPlan>>
+}
+
+function Dashboard({ subscriptionPlan }: Props) {
 
     const [deletarArquivoAtual, setDeletarArquivoAtual] = useState<string | null>(null)
 
@@ -35,7 +39,7 @@ function Dashboard() {
         <main className='mx-auto max-w-7xl md:p-10'>
             <div className="flex flex-col mt-8 items-start justify-between gap-4 border-b border-gray-200 pb-5 sm:flex-row sm:items-center sm:gap-0">
                 <h1 className='mb-3 font-bold text-5xl text-gray-900'>Meus arquivos</h1>
-                <UploadButton />
+                <UploadButton isSubscribed={subscriptionPlan.isSubscribed} />
             </div>
 
             {/* Arquivos do usuário */}
@@ -60,7 +64,7 @@ function Dashboard() {
                                 </div>
                                 <div className='flex items-center gap-2'>
                                     <MessageSquare className='h-4 w-4' />
-                                    teste
+                                    Chat
                                 </div>
 
                                 <Button
