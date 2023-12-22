@@ -16,7 +16,7 @@ const Page = () => {
     const pricingItems = [
         {
             plan: 'Gratuito',
-            tagline: 'Para projetos de pequenos',
+            tagline: 'Para projetos menores.',
             quota: 10,
             features: [
                 {
@@ -42,9 +42,9 @@ const Page = () => {
             ],
         },
         {
-            plan: 'Premium',
-            tagline: 'Para projetos maiores com necessidades maiores.',
-            quota: PLANS.find((p) => p.slug === 'premium')!.quota,
+            plan: 'Pro',
+            tagline: 'Para projetos maiores maiores.',
+            quota: PLANS.find((p) => p.slug === 'pro')!.quota,
             features: [
                 {
                     text: '25 páginas por PDF',
@@ -84,10 +84,10 @@ const Page = () => {
                             const price = PLANS.find((p) => p.slug === plan.toLocaleLowerCase())?.price.amount || 0
 
                             return (<div key={plan} className={cn('relative rounded-2xl bg-white shadow-lg', {
-                                'border-2 border-green-600 shadow-green-200': plan === 'Premium',
-                                'border border-gray-200': plan !== 'Premium',
+                                'border-2 border-green-600 shadow-green-200': plan === 'Pro',
+                                'border border-gray-200': plan !== 'Pro',
                             })}>
-                                {plan === 'Premium' && (
+                                {plan === 'Pro' && (
                                     <div className='absolute -top-5 left-0 right-0 mx-auto w-32 rounded-full bg-gradient-to-r from-emerald-600 to-green-600 px-3 py-2 text-sm font-medium text-white'>
                                         Contrate agora
                                     </div>
@@ -157,7 +157,7 @@ const Page = () => {
                                             className: 'w-full',
                                             variant: 'secondary',
                                         })}>
-                                            {user ? "Faça o upgrade" : "Registre-se"}
+                                            {user ? "Vá para o dashboard" : "Registre-se"}
                                             <ArrowRight className='h-5 w-5 ml-1.5' />
                                         </Link>
                                     ) : user ? (
