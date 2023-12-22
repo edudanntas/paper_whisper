@@ -71,8 +71,10 @@ export const POST = async (req: NextRequest) => {
     })
 
     const formattedPrevMessages = prevMessages.map((msg) => ({
-        role: msg.isUserMessage ? "user" as const : "assistant" as const,
-        content: msg.text
+        role: msg.isUserMessage
+            ? ('user' as const)
+            : ('assistant' as const),
+        content: msg.text,
     }))
 
     const response = await openai.chat.completions.create({
