@@ -62,6 +62,7 @@ const DropzoneUpload = () => {
                 })
             }
 
+            // @ts-ignore
             const [fileResponse] = res
 
             const key = fileResponse?.key
