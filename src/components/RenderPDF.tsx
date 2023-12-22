@@ -104,7 +104,7 @@ function RenderPDF({ url }: Props) {
                     </Button>
                 </div>
 
-                <div className='space-x-2'>
+                <div className='space-x-2 flex'>
                     <DropdownMenu>
                         <DropdownMenuTrigger asChild>
                             <Button className='gap-1.5' aria-label='zoom' variant='ghost'>

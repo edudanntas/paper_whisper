@@ -47,7 +47,7 @@ const DropzoneUpload = ({ isSubscribed }: { isSubscribed: boolean }) => {
         return interval
     }
 
-    return <Dropzone multiple={false}
+    return <Dropzone multiple={false} noClick={true}
         onDrop={async (acceptedFiles) => {
 
             setIsUploading(true)
