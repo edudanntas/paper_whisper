@@ -1,8 +1,7 @@
 'use client'
-import React from 'react'
-import { Button } from './ui/button'
-import { ArrowRight } from 'lucide-react'
 import { trpc } from '@/app/(trpc)/client'
+import { Clock } from 'lucide-react'
+import { Button } from './ui/button'
 
 const UpgradeButton = () => {
 
@@ -13,8 +12,8 @@ const UpgradeButton = () => {
     })
 
     return (
-        <Button onClick={() => createStripeSession()} className='w-full'>
-            Faça o upgrade <ArrowRight className='h-5 w-5 ml-1.5' />
+        <Button disabled={true} onClick={() => createStripeSession()} className='w-full'>
+            Em breve... <Clock className='h-5 w-5 ml-1.5' />
         </Button>
     )
 }

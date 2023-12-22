@@ -4,9 +4,9 @@ import { PLANS } from '@/config/stripe'
 import { cn } from '@/lib/utils'
 import Link from 'next/link'
 import { getKindeServerSession } from '@kinde-oss/kinde-auth-nextjs/server'
-import { ArrowRight, Check, Divide, HelpCircle, MinusCircle } from 'lucide-react'
+import { ArrowRight, Check, Clock, Divide, HelpCircle, MinusCircle } from 'lucide-react'
 import React from 'react'
-import { buttonVariants } from '@/components/ui/button'
+import { Button, buttonVariants } from '@/components/ui/button'
 import UpgradeButton from '@/components/UpgradeButton'
 
 const Page = () => {
@@ -17,14 +17,14 @@ const Page = () => {
         {
             plan: 'Gratuito',
             tagline: 'Para projetos menores.',
-            quota: 10,
+            quota: 20,
             features: [
                 {
-                    text: '5 páginas por PDF',
+                    text: '15 páginas por PDF',
                     footnote: 'A quantidade máxima de páginas por arquivo PDF.',
                 },
                 {
-                    text: 'Limite de tamanho do arquivo: 4MB',
+                    text: 'Limite de tamanho do arquivo: 16MB',
                     footnote: 'O tamanho máximo do arquivo PDF único.',
                 },
                 {
@@ -47,11 +47,11 @@ const Page = () => {
             quota: PLANS.find((p) => p.slug === 'pro')!.quota,
             features: [
                 {
-                    text: '25 páginas por PDF',
+                    text: '40 páginas por PDF',
                     footnote: 'A quantidade máxima de páginas por arquivo PDF.',
                 },
                 {
-                    text: 'Limite de tamanho do arquivo: 16MB',
+                    text: 'Limite de tamanho do arquivo: 64MB',
                     footnote: 'O tamanho máximo do arquivo PDF único.',
                 },
                 {
@@ -89,7 +89,7 @@ const Page = () => {
                             })}>
                                 {plan === 'Pro' && (
                                     <div className='absolute -top-5 left-0 right-0 mx-auto w-32 rounded-full bg-gradient-to-r from-emerald-600 to-green-600 px-3 py-2 text-sm font-medium text-white'>
-                                        Contrate agora
+                                        Em breve
                                     </div>
                                 )}
                                 <div className='p-5'>
@@ -163,12 +163,7 @@ const Page = () => {
                                     ) : user ? (
                                         <UpgradeButton />
                                     ) : (
-                                        <Link href='/login' className={buttonVariants({
-                                            className: 'w-full',
-                                        })}>
-                                            {user ? "Faça o upgrade" : "Registre-se"}
-                                            <ArrowRight className='h-5 w-5 ml-1.5' />
-                                        </Link>
+                                        <Button disabled={true} className="w-full">Em breve... <Clock className='h-5 w-5 ml-1.5' /></Button>
                                     )}
                                 </div>
                             </div>)
