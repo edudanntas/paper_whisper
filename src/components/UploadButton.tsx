@@ -40,7 +40,7 @@ const DropzoneUpload = ({ isSubscribed }: { isSubscribed: boolean }) => {
                     clearInterval(interval)
                     return prevProgress
                 }
-                return prevProgress + 2
+                return prevProgress + 5
             })
         }, 500)
 
@@ -62,6 +62,9 @@ const DropzoneUpload = ({ isSubscribed }: { isSubscribed: boolean }) => {
                     description: 'Por favor, tente novamente mais tarde.',
                     variant: 'destructive',
                 })
+
+                clearInterval(progressInterval)
+                setUploadProgress(0)
             }
 
             // @ts-ignore
