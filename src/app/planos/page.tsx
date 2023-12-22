@@ -17,7 +17,7 @@ const Page = () => {
         {
             plan: 'Gratuito',
             tagline: 'Para projetos menores.',
-            quota: 20,
+            quota: 10,
             features: [
                 {
                     text: '15 páginas por PDF',

@@ -2,7 +2,7 @@ export const PLANS = [
     {
         name: 'Gratuito',
         slug: 'gratuito',
-        quota: 20,
+        quota: 10,
         pagesPerPdf: 15,
         price: {
             amount: 0,
