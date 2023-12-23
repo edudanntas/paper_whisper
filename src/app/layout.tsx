@@ -1,3 +1,4 @@
+import { Analytics } from '@vercel/analytics/react';
 import Navbar from '@/components/Navbar'
 import Providers from '@/components/Providers'
 import { Toaster } from '@/components/ui/toaster'
@@ -25,6 +26,7 @@ export default function RootLayout({
           <Toaster />
           <Navbar />
           {children}
+          <Analytics />
         </body>
       </Providers>
     </html>

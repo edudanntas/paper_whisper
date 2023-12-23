@@ -1,13 +1,12 @@
-import { getKindeServerSession } from '@kinde-oss/kinde-auth-nextjs/server';
-import { protectedProcedure, publicProcedure, router } from './trpc';
-import { TRPCError } from '@trpc/server';
-import { db } from '@/db';
-import { z } from 'zod';
 import { INFINITE_QUERY_LIMIT } from '@/config/infinite-query';
-import { absoluteUrl } from '@/lib/utils';
-import { getUserSubscriptionPlan, stripe } from '@/lib/stripe';
 import { PLANS } from '@/config/stripe';
-import clsx from 'clsx';
+import { db } from '@/db';
+import { getUserSubscriptionPlan, stripe } from '@/lib/stripe';
+import { absoluteUrl } from '@/lib/utils';
+import { getKindeServerSession } from '@kinde-oss/kinde-auth-nextjs/server';
+import { TRPCError } from '@trpc/server';
+import { z } from 'zod';
+import { protectedProcedure, publicProcedure, router } from './trpc';
 
 export const appRouter = router({
     authCallback: publicProcedure.query(async () => {

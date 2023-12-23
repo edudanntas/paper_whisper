@@ -163,7 +163,7 @@ const Page = () => {
                                     ) : user ? (
                                         <UpgradeButton />
                                     ) : (
-                                        <Button disabled={true} className="w-full">Em breve... <Clock className='h-5 w-5 ml-1.5' /></Button>
+                                        <Button className="w-full">Registre-se <ArrowRight className='h-5 w-5 ml-1.5' /></Button>
                                     )}
                                 </div>
                             </div>)
