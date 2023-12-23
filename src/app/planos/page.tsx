@@ -89,7 +89,7 @@ const Page = () => {
                             })}>
                                 {plan === 'Pro' && (
                                     <div className='absolute -top-5 left-0 right-0 mx-auto w-32 rounded-full bg-gradient-to-r from-emerald-600 to-green-600 px-3 py-2 text-sm font-medium text-white'>
-                                        Em breve
+                                        Contrate Agora
                                     </div>
                                 )}
                                 <div className='p-5'>
@@ -153,7 +153,7 @@ const Page = () => {
                                 <div className='border-t border-gray-200' />
                                 <div className='p-5'>
                                     {plan === 'Gratuito' ? (
-                                        <Link href={user ? '/dashboard' : 'login'} className={buttonVariants({
+                                        <Link href={user ? '/dashboard' : 'register'} className={buttonVariants({
                                             className: 'w-full',
                                             variant: 'secondary',
                                         })}>
@@ -163,7 +163,9 @@ const Page = () => {
                                     ) : user ? (
                                         <UpgradeButton />
                                     ) : (
-                                        <Button disabled={true} className="w-full">Em breve... <Clock className='h-5 w-5 ml-1.5' /></Button>
+                                        <Link href="/register" className={buttonVariants({
+                                            className: 'w-full'
+                                        })}>Registre-se <ArrowRight className='h-5 w-5 ml-1.5' /></Link>
                                     )}
                                 </div>
                             </div>)

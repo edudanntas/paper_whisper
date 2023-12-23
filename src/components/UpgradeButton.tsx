@@ -12,8 +12,8 @@ const UpgradeButton = () => {
     })
 
     return (
-        <Button disabled={true} onClick={() => createStripeSession()} className='w-full'>
-            Em breve... <Clock className='h-5 w-5 ml-1.5' />
+        <Button onClick={() => createStripeSession()} className='w-full'>
+            Contrate agora <ArrowRight className='h-5 w-5 ml-1.5' />
         </Button>
     )
 }
