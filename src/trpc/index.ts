@@ -7,6 +7,9 @@ import { getKindeServerSession } from '@kinde-oss/kinde-auth-nextjs/server';
 import { TRPCError } from '@trpc/server';
 import { z } from 'zod';
 import { protectedProcedure, publicProcedure, router } from './trpc';
+import { UTApi } from "uploadthing/server";
+
+export const utapi = new UTApi();
 
 export const appRouter = router({
     authCallback: publicProcedure.query(async () => {
@@ -182,6 +185,8 @@ export const appRouter = router({
             },
         })
 
+        const fileKey = file?.key
+
         const messages = await db.message.findMany({
             where: {
                 fileId: input.id,
@@ -202,6 +207,8 @@ export const appRouter = router({
                 id: input.id,
             },
         })
+
+        await utapi.deleteFiles(fileKey!)
 
         return {
             file,
