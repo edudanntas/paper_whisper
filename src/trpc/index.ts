@@ -86,7 +86,7 @@ export const appRouter = router({
                         {
                             price: PLANS.find(
                                 (plan) => plan.name === 'Pro'
-                            )?.price.priceIds.test,
+                            )?.price.priceIds.production,
                             quantity: 1,
                         },
                     ],

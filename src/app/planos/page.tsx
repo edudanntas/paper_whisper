@@ -24,7 +24,7 @@ const Page = () => {
                     footnote: 'A quantidade máxima de páginas por arquivo PDF.',
                 },
                 {
-                    text: 'Limite de tamanho do arquivo: 16MB',
+                    text: 'Limite de tamanho do arquivo: 4MB',
                     footnote: 'O tamanho máximo do arquivo PDF único.',
                 },
                 {
@@ -51,7 +51,7 @@ const Page = () => {
                     footnote: 'A quantidade máxima de páginas por arquivo PDF.',
                 },
                 {
-                    text: 'Limite de tamanho do arquivo: 64MB',
+                    text: 'Limite de tamanho do arquivo: 16MB',
                     footnote: 'O tamanho máximo do arquivo PDF único.',
                 },
                 {
