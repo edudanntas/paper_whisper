@@ -13,7 +13,7 @@ const UpgradeButton = () => {
 
     return (
         <Button onClick={() => createStripeSession()} className='w-full'>
-            Assine agora <ArrowRight className='h-5 w-5 ml-1.5' />
+            Em breve... <Clock className='h-5 w-5 ml-1.5' />
         </Button>
     )
 }
