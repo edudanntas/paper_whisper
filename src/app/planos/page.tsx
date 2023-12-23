@@ -43,7 +43,7 @@ const Page = () => {
         },
         {
             plan: 'Pro',
-            tagline: 'Para projetos maiores maiores.',
+            tagline: 'Para projetos maiores.',
             quota: PLANS.find((p) => p.slug === 'pro')!.quota,
             features: [
                 {
