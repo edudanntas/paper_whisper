@@ -1,17 +1,19 @@
 import MaxWidthWrapper from '@/components/MaxWidthWrapper'
-import { Tooltip, TooltipProvider, TooltipTrigger, TooltipContent } from '@/components/ui/tooltip'
-import { PLANS } from '@/config/stripe'
-import { cn } from '@/lib/utils'
-import Link from 'next/link'
-import { getKindeServerSession } from '@kinde-oss/kinde-auth-nextjs/server'
-import { ArrowRight, Check, Clock, Divide, HelpCircle, MinusCircle } from 'lucide-react'
-import React from 'react'
-import { Button, buttonVariants } from '@/components/ui/button'
 import UpgradeButton from '@/components/UpgradeButton'
+import { buttonVariants } from '@/components/ui/button'
+import { Tooltip, TooltipContent, TooltipProvider, TooltipTrigger } from '@/components/ui/tooltip'
+import { PLANS } from '@/config/stripe'
+import { getUserSubscriptionPlan } from '@/lib/stripe'
+import { cn } from '@/lib/utils'
+import { getKindeServerSession } from '@kinde-oss/kinde-auth-nextjs/server'
+import { ArrowRight, Check, HelpCircle, MinusCircle } from 'lucide-react'
+import Link from 'next/link'
 
-const Page = () => {
+const Page = async () => {
     const { getUser } = getKindeServerSession()
     const user = getUser()
+
+    const { isSubscribed: subscriptionPlan } = await getUserSubscriptionPlan()
 
     const pricingItems = [
         {
@@ -160,8 +162,12 @@ const Page = () => {
                                             {user ? "Vá para o dashboard" : "Registre-se"}
                                             <ArrowRight className='h-5 w-5 ml-1.5' />
                                         </Link>
-                                    ) : user ? (
+                                    ) : user && !subscriptionPlan ? (
                                         <UpgradeButton />
+                                    ) : user && subscriptionPlan ? (
+                                        <Link href="/dashboard" className={buttonVariants({
+                                            className: 'w-full'
+                                        })}>Vá para o dashboard <ArrowRight className='h-5 w-5 ml-1.5' /></Link>
                                     ) : (
                                         <Link href="/register" className={buttonVariants({
                                             className: 'w-full'
