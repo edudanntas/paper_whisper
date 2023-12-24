@@ -1,6 +1,6 @@
 'use client'
 import { trpc } from '@/app/(trpc)/client'
-import { ArrowRight, Clock } from 'lucide-react'
+import { ArrowRight } from 'lucide-react'
 import { Button } from './ui/button'
 
 const UpgradeButton = () => {
