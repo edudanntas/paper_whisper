@@ -8,7 +8,8 @@ import Link from 'next/link'
 import { useState } from 'react'
 import Skeleton from 'react-loading-skeleton'
 import UploadButton from './UploadButton'
-import { Button } from './ui/button'
+import { Button, buttonVariants } from './ui/button'
+import { AlertDialog, AlertDialogAction, AlertDialogCancel, AlertDialogContent, AlertDialogDescription, AlertDialogFooter, AlertDialogHeader, AlertDialogTitle, AlertDialogTrigger } from './ui/alert-dialog'
 
 type Props = {
     subscriptionPlan: Awaited<ReturnType<typeof getUserSubscriptionPlan>>
@@ -66,16 +67,31 @@ function Dashboard({ subscriptionPlan }: Props) {
                                     <MessageSquare className='h-4 w-4' />
                                     Chat
                                 </div>
-
-                                <Button
-                                    onClick={() => deleteFile({ id: file.id })}
-                                    size='sm'
-                                    className='w-full'
-                                    variant='destructive'>
-                                    {deletarArquivoAtual === file.id ? (
-                                        <Loader2 className='h-4 w-4 animate-spin' />
-                                    ) : < Trash className='h-4 w-4' />}
-                                </Button>
+                                <AlertDialog>
+                                    <AlertDialogTrigger>
+                                        <Button
+                                            // onClick={() => deleteFile({ id: file.id })}
+                                            size='sm'
+                                            className='w-full'
+                                            variant='destructive'>
+                                            {deletarArquivoAtual === file.id ? (
+                                                <Loader2 className='h-4 w-4 animate-spin' />
+                                            ) : < Trash className='h-4 w-4' />}
+                                        </Button>
+                                    </AlertDialogTrigger>
+                                    <AlertDialogContent>
+                                        <AlertDialogHeader>
+                                            <AlertDialogTitle>Você tem certeza que deseja deletar esse arquivo?</AlertDialogTitle>
+                                            <AlertDialogDescription>Essa ação não pode ser desfeita e isso acarretará na exclusão do seu arquivo e do histórico de conversas permanentemente</AlertDialogDescription>
+                                        </AlertDialogHeader>
+                                        <AlertDialogFooter>
+                                            <AlertDialogCancel>Cancelar</AlertDialogCancel>
+                                            <AlertDialogAction onClick={() => deleteFile({ id: file.id })} className={buttonVariants({
+                                                variant: "destructive",
+                                            })}>Deletar</AlertDialogAction>
+                                        </AlertDialogFooter>
+                                    </AlertDialogContent>
+                                </AlertDialog>
                             </div>
 
                         </li>
