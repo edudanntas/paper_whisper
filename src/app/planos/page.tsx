@@ -162,9 +162,9 @@ const Page = async () => {
                                             {user ? "Vá para o dashboard" : "Registre-se"}
                                             <ArrowRight className='h-5 w-5 ml-1.5' />
                                         </Link>
-                                    ) : user && !subscriptionPlan ? (
+                                    ) : (user && !subscriptionPlan) ? (
                                         <UpgradeButton />
-                                    ) : user && subscriptionPlan ? (
+                                    ) : (user && subscriptionPlan) ? (
                                         <Link href="/dashboard" className={buttonVariants({
                                             className: 'w-full'
                                         })}>Vá para o dashboard <ArrowRight className='h-5 w-5 ml-1.5' /></Link>
