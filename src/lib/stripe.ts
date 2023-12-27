@@ -12,8 +12,6 @@ export async function getUserSubscriptionPlan() {
     const { getUser } = getKindeServerSession()
     const user = getUser()
 
-    console.log(user ? user : 'sem usuario')
-
     if (!user || !user.id) {
         return {
             ...PLANS[0],
