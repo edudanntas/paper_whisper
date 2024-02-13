@@ -1,7 +1,7 @@
 'use client'
 import { trpc } from '@/app/(trpc)/client'
-import { useKindeBrowserClient } from "@kinde-oss/kinde-auth-nextjs"
 import { getUserSubscriptionPlan } from '@/lib/stripe'
+import { getKindeServerSession } from "@kinde-oss/kinde-auth-nextjs/server"
 import { format, setDefaultOptions } from 'date-fns'
 import { ptBR } from 'date-fns/locale'
 import { Ghost, Loader2, MessageSquare, Plus, Trash } from 'lucide-react'
@@ -17,7 +17,7 @@ type Props = {
 }
 
 function Dashboard({ subscriptionPlan }: Props) {
-    const { getBooleanFlag } = useKindeBrowserClient()
+    const { getBooleanFlag } = getKindeServerSession()
 
     const [darkModeEnabled, setDarkModeEnabled] = useState(false)
 
@@ -36,7 +36,7 @@ function Dashboard({ subscriptionPlan }: Props) {
         return () => {
             isMounted = false
         }
-    }, [])
+    }, [getBooleanFlag])
 
     const [deletarArquivoAtual, setDeletarArquivoAtual] = useState<string | null>(null)
 
@@ -59,14 +59,14 @@ function Dashboard({ subscriptionPlan }: Props) {
     })
     return (
         <main className='mx-auto max-w-7xl md:p-10'>
-            {darkModeEnabled && <div className="flex flex-col mt-8 items-start justify-between gap-4 border-b border-gray-200 pb-5 sm:flex-row sm:items-center sm:gap-0">
+            {darkModeEnabled ? (<div className="flex flex-col mt-8 items-start justify-between gap-4 border-b border-gray-200 pb-5 sm:flex-row sm:items-center sm:gap-0">
                 <h1 className='mb-3 font-bold text-5xl text-gray-500'>Meus arquivos</h1>
                 <UploadButton isSubscribed={subscriptionPlan.isSubscribed} />
-            </div>}
-            {!darkModeEnabled && <div className="flex flex-col mt-8 items-start justify-between gap-4 border-b border-gray-200 pb-5 sm:flex-row sm:items-center sm:gap-0">
+            </div>) : (<div className="flex flex-col mt-8 items-start justify-between gap-4 border-b border-gray-200 pb-5 sm:flex-row sm:items-center sm:gap-0">
                 <h1 className='mb-3 font-bold text-5xl text-gray-900'>Meus arquivos</h1>
                 <UploadButton isSubscribed={subscriptionPlan.isSubscribed} />
-            </div>}
+            </div>)}
+
 
             {/* Arquivos do usuário */}
             {files && files?.length !== 0 ? (
